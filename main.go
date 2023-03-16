@@ -5,16 +5,18 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"time"
 )
 
 func main() {
+	start := time.Now()
+
 	files, err := ioutil.ReadDir("music")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	for _, f := range files {
-		fmt.Println("music/" + f.Name())
 
 		src := []byte("OggS") //Заменяем на OggS
 
@@ -29,6 +31,11 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+		fmt.Println("music/" + f.Name())
 
-	}
+	} // Код для измерения
+	duration := time.Since(start)
+	// Отформатированная строка,
+	// например, "2h3m0.5s" или "4.503μs"
+	fmt.Println(duration)
 }
