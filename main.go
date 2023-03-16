@@ -2,40 +2,38 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
-	"time"
+	"path/filepath"
 )
 
 func main() {
-	start := time.Now()
 
-	files, err := ioutil.ReadDir("music")
+	pach := "music/*.ogg" //Путь к папке с Ogg
+	src := []byte("OggS") //Заменяем на OggS
+
+	files, err := filepath.Glob(pach)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	for _, f := range files {
 
-		src := []byte("OggS") //Заменяем на OggS
-
-		f, err := os.OpenFile("music/"+f.Name(), os.O_WRONLY|os.O_CREATE, 0666)
+		file_Ogg, err := os.OpenFile(f, os.O_WRONLY|os.O_CREATE, 0666)
 		if err != nil {
 			panic(err)
 		}
 
-		defer f.Close()
+		defer file_Ogg.Close()
 
-		_, err = f.Write(src)
+		_, err = file_Ogg.Write(src)
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println("music/" + f.Name())
 
-	} // Код для измерения
-	duration := time.Since(start)
-	// Отформатированная строка,
-	// например, "2h3m0.5s" или "4.503μs"
-	fmt.Println(duration)
+		//	fmt.Println(f)
+
+	}
+
+	fmt.Println("Файлы пропатчины!")
 }
