@@ -10,7 +10,7 @@ import (
 func main() {
 
 	pach := "music/*.ogg" //Путь к папке с Ogg
-	src := []byte("OggS") //Заменяем байты на OggS
+	src := []byte("OggS") //Заменяем L2SD (в начале файла *.ogg) на OggS
 
 	files, err := filepath.Glob(pach)
 	if err != nil {
